@@ -1,0 +1,10 @@
+[
+	{
+		"Description": "Xoro8100",
+		"UriAndPort": "192.168.178.99"
+	},
+	{
+		"Description": "Triax",
+		"UriAndPort": "192.168.178.53"
+	}
+]
