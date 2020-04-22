@@ -479,15 +479,28 @@ namespace SatIPlayer
 		private void BuildAudioTracksMenu()
 		{
 			barListItemAudioTracks.Strings.Clear();
+
+			IEnumerable<TrackDescription> tracks = vlcControl7.VlcMediaPlayer.Audio.Tracks.All;
+			TrackDescription currentTrack = vlcControl7.VlcMediaPlayer.Audio.Tracks.Current;
+			int selectedIndex = 0;
+			int currentIndex = 0;
+			foreach (TrackDescription trackDescription in tracks)
+			{
+				if (trackDescription.ID == currentTrack.ID)
+				{
+					selectedIndex = currentIndex;
+				}
+				barListItemAudioTracks.Strings.Add(trackDescription.Name);
+				++currentIndex;
+			}
+
+			/* TODO: additionally use some infos from media.Tracks?
 			VlcMedia media = vlcControl7.GetCurrentMedia();
 			if (media == null)
 			{
-				//TODO show feedback to user
 				barListItemAudioTracks.Enabled = false;
 				return;
 			}
-			int selectedIndex = 0;
-			int currentIndex = 0;
 			foreach (MediaTrack track in media.Tracks.Where(item => item.Type == MediaTrackTypes.Audio))
 			{
 				string bitrateText = track.Bitrate > 0 ? $" {track.Bitrate / 1024.0:#}kbps" : "";
@@ -497,8 +510,8 @@ namespace SatIPlayer
 				{
 					selectedIndex = currentIndex;
 				}
-				++currentIndex;
-			}
+			}*/
+
 			barListItemAudioTracks.ItemIndex = selectedIndex; // when an item is clicked by the user, the checkmark is automatically set by the barListItem control
 			barListItemAudioTracks.Enabled = barListItemAudioTracks.Strings.Count > 0;
 		}
@@ -515,9 +528,8 @@ namespace SatIPlayer
 
 		private void barListItemAudioTracks_ListItemClick(object sender, DevExpress.XtraBars.ListItemClickEventArgs e)
 		{
-			VlcMedia media = vlcControl7.GetCurrentMedia();
-			var track = media.Tracks.Where(item => item.Type == MediaTrackTypes.Audio).ToArray()[e.Index];//TODO HACK could change inbetween
-			media.TrackID = track.Id.ToString();//TODO: had no effect on ARTE (DVBViewer was able to switch language during the tests - is audiotrack part of satip url? tested with file:no effect either and language, description and bitrate were empty -  test with same file in VLC: witching tracks worked -> open issue in github?
+			// updating audio-menu is disabled, when it is open, so e.Index should be valid
+			vlcControl7.VlcMediaPlayer.Audio.Tracks.Current = vlcControl7.VlcMediaPlayer.Audio.Tracks.All.ToArray()[e.Index];
 		}
 
 		private void barListItemAudioTracks_CloseUp(object sender, EventArgs e)
