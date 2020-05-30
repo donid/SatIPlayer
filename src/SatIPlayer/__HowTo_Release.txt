@@ -1,0 +1,4 @@
+﻿turn on Prefer32bit, build, rename .exe to SatIPlayer_32bit.exe
+turn off Prefer32bit, build
+delete the folder 'libvlc' and delete 'satip_config.json'
+add the folder to a zip-file

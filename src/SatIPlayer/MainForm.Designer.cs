@@ -36,11 +36,11 @@
 			this.barButtonItemChannels = new DevExpress.XtraBars.BarButtonItem();
 			this.barListItemFavorites = new DevExpress.XtraBars.BarListItem();
 			this.barButtonItemServer = new DevExpress.XtraBars.BarButtonItem();
+			this.barListItemAudioTracks = new DevExpress.XtraBars.BarListItem();
 			this.barButtonItemPause = new DevExpress.XtraBars.BarButtonItem();
 			this.barButtonItemPlayFile = new DevExpress.XtraBars.BarButtonItem();
-			this.barButtonItem4 = new DevExpress.XtraBars.BarButtonItem();
 			this.barButtonItemAbout = new DevExpress.XtraBars.BarButtonItem();
-			this.barListItemAudioTracks = new DevExpress.XtraBars.BarListItem();
+			this.barButtonItem4 = new DevExpress.XtraBars.BarButtonItem();
 			this.bar3 = new DevExpress.XtraBars.Bar();
 			this.barButtonItemMute = new DevExpress.XtraBars.BarButtonItem();
 			this.barEditItemVolume = new DevExpress.XtraBars.BarEditItem();
@@ -173,6 +173,22 @@
 			this.barButtonItemServer.Name = "barButtonItemServer";
 			this.barButtonItemServer.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonServer_Click);
 			// 
+			// barListItemAudioTracks
+			// 
+			this.barListItemAudioTracks.Caption = "AudioTracks";
+			this.barListItemAudioTracks.Enabled = false;
+			this.barListItemAudioTracks.Id = 19;
+			this.barListItemAudioTracks.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barListItemAudioTracks.ImageOptions.Image")));
+			this.barListItemAudioTracks.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barListItemAudioTracks.ImageOptions.LargeImage")));
+			this.barListItemAudioTracks.Name = "barListItemAudioTracks";
+			this.barListItemAudioTracks.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
+			this.barListItemAudioTracks.ShowChecks = true;
+			this.barListItemAudioTracks.ListItemClick += new DevExpress.XtraBars.ListItemClickEventHandler(this.barListItemAudioTracks_ListItemClick);
+			this.barListItemAudioTracks.CloseUp += new System.EventHandler(this.barListItemAudioTracks_CloseUp);
+			this.barListItemAudioTracks.Popup += new System.EventHandler(this.barListItemAudioTracks_Popup);
+			this.barListItemAudioTracks.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barListItemAudioTracks_ItemClick);
+			this.barListItemAudioTracks.ItemPress += new DevExpress.XtraBars.ItemClickEventHandler(this.barListItemAudioTracks_ItemPress);
+			// 
 			// barButtonItemPause
 			// 
 			this.barButtonItemPause.ButtonStyle = DevExpress.XtraBars.BarButtonStyle.Check;
@@ -193,14 +209,6 @@
 			this.barButtonItemPlayFile.Name = "barButtonItemPlayFile";
 			this.barButtonItemPlayFile.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemPlayFile_ItemClick);
 			// 
-			// barButtonItem4
-			// 
-			this.barButtonItem4.Caption = "Test";
-			this.barButtonItem4.Id = 12;
-			this.barButtonItem4.Name = "barButtonItem4";
-			this.barButtonItem4.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
-			this.barButtonItem4.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem4_ItemClick);
-			// 
 			// barButtonItemAbout
 			// 
 			this.barButtonItemAbout.Caption = "About";
@@ -210,21 +218,13 @@
 			this.barButtonItemAbout.Name = "barButtonItemAbout";
 			this.barButtonItemAbout.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItemAbout_ItemClick);
 			// 
-			// barListItemAudioTracks
+			// barButtonItem4
 			// 
-			this.barListItemAudioTracks.Caption = "AudioTracks";
-			this.barListItemAudioTracks.Enabled = false;
-			this.barListItemAudioTracks.Id = 19;
-			this.barListItemAudioTracks.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barListItemAudioTracks.ImageOptions.Image")));
-			this.barListItemAudioTracks.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barListItemAudioTracks.ImageOptions.LargeImage")));
-			this.barListItemAudioTracks.Name = "barListItemAudioTracks";
-			this.barListItemAudioTracks.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
-			this.barListItemAudioTracks.ShowChecks = true;
-			this.barListItemAudioTracks.ListItemClick += new DevExpress.XtraBars.ListItemClickEventHandler(this.barListItemAudioTracks_ListItemClick);
-			this.barListItemAudioTracks.CloseUp += new System.EventHandler(this.barListItemAudioTracks_CloseUp);
-			this.barListItemAudioTracks.Popup += new System.EventHandler(this.barListItemAudioTracks_Popup);
-			this.barListItemAudioTracks.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barListItemAudioTracks_ItemClick);
-			this.barListItemAudioTracks.ItemPress += new DevExpress.XtraBars.ItemClickEventHandler(this.barListItemAudioTracks_ItemPress);
+			this.barButtonItem4.Caption = "Test";
+			this.barButtonItem4.Id = 12;
+			this.barButtonItem4.Name = "barButtonItem4";
+			this.barButtonItem4.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+			this.barButtonItem4.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.barButtonItem4_ItemClick);
 			// 
 			// bar3
 			// 

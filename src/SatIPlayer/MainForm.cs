@@ -33,7 +33,7 @@ namespace SatIPlayer
 		//string _satIpServerAndPort = "192.168.178.53";// triax / dvbviewer uses port :554 - VLC does not require the port to be specified
 		string _satIpServerAndPort;//= "192.168.178.99";// xoro / dvbviewer uses port :554 - VLC does not require the port to be specified
 		string _favoritesFilePath = "satip_favorites.json";
-		string _configFilePath = "satip_config";
+		string _configFilePath = "satip_config.json";
 
 		private List<ChannelInfo> _favoriteChannels;
 		private ServerConfig _serverConfig = new ServerConfig();
@@ -106,10 +106,28 @@ namespace SatIPlayer
 
 		private void vlcControl7_VlcLibDirectoryNeeded(object sender, Vlc.DotNet.Forms.VlcLibDirectoryNeededEventArgs e)
 		{
-			var currentAssembly = Assembly.GetEntryAssembly();
-			var currentDirectory = new FileInfo(currentAssembly.Location).DirectoryName;
+			Assembly entryAssembly = Assembly.GetEntryAssembly();
+			string binaryDirectory = new FileInfo(entryAssembly.Location).DirectoryName;
 			// Default installation path of VideoLAN.LibVLC.Windows
-			e.VlcLibDirectory = new DirectoryInfo(Path.Combine(currentDirectory, "libvlc", IntPtr.Size == 4 ? "win-x86" : "win-x64"));
+			string vlcLibDirectory = Path.Combine(binaryDirectory, "libvlc", IntPtr.Size == 4 ? "win-x86" : "win-x64");
+			if (!Directory.Exists(vlcLibDirectory))
+			{
+				if (IntPtr.Size == 4)
+				{
+					vlcLibDirectory = @"C:\Program Files (x86)\VideoLAN\VLC";
+				}
+				else
+				{
+					vlcLibDirectory = @"C:\Program Files\VideoLAN\VLC";
+				}
+			}
+			if (!Directory.Exists(vlcLibDirectory))
+			{
+				timer1.Enabled = false;
+				MessageBox.Show(this, "vlc / libvlc not found!", "SatIPlayer");
+				Environment.Exit(0);
+			}
+			e.VlcLibDirectory = new DirectoryInfo(vlcLibDirectory);
 		}
 
 
@@ -331,7 +349,7 @@ namespace SatIPlayer
 			AdjustToNewServer();
 
 
-			//vlc nutzt "urn:schemas-upnp-org:device:MediaServer:1"
+			//vlc uses "urn:schemas-upnp-org:device:MediaServer:1"
 			//var devices = await new UPnP.Ssdp().SearchDevicesAsync("urn:schemas-upnp-org:device:MediaServer:1");
 			//IEnumerable<UPnP.Device> devices = await new UPnP.Ssdp().SearchDevicesAsync("urn:ses-com:device:SatIPServer:1");
 
@@ -400,11 +418,12 @@ namespace SatIPlayer
 
 		private void TogglePausePlay()
 		{
-			//liefert bei file auch false!
+			//returns false, even for files!
 			//if (vlcControl7.VlcMediaPlayer.IsPausable() )
 			//{
 			//	return;
 			//}
+
 			if (vlcControl7.VlcMediaPlayer.IsPlaying())
 			{
 				vlcControl7.VlcMediaPlayer.Pause(); // works for satip, too
@@ -471,7 +490,11 @@ namespace SatIPlayer
 
 		private void barButtonItemAbout_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
 		{
+			VlcManager mgr = vlcControl7.VlcMediaPlayer.Manager;
+
 			AboutForm form = new AboutForm();
+			form.VlcVersion = mgr.VlcVersion;
+			form.VlcLibDirectory = vlcControl7.VlcLibDirectory.FullName;
 			form.ShowDialog(this);
 		}
 
