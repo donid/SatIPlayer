@@ -1,0 +1,29 @@
+#EXTM3U
+#EXTINF:0,2001. RtlPlus
+rtsp://sat.ip/?src=1&freq=12188&pol=h&ro=0.35&msys=dvbs&mtype=qpsk&plts=off&sr=27500&fec=34&pids=0,17,18,168,137,41,70
+#EXTINF:0,2002. SES UHD Demo Channel 02 - Bild geht nur 2s lang in VLC
+rtsp://sat.ip/?src=1&freq=10995&pol=h&ro=0.35&msys=dvbs2&mtype=8psk&plts=off&sr=22000&fec=56&pids=0,17,18,511,512,32
+#EXTINF:0,2003. MTV
+rtsp://sat.ip/?src=1&freq=11973&pol=v&ro=0.35&msys=dvbs&mtype=qpsk&plts=off&sr=27500&fec=34&pids=0,17,18,4081,4082,418,4084
+#EXTINF:0,2004. N24 Doku
+rtsp://sat.ip/?src=1&freq=12460&pol=h&ro=0.35&msys=dvbs&mtype=qpsk&plts=off&sr=27500&fec=34&pids=0,17,18,511,512,97,34
+#EXTINF:0,2005. TLC
+rtsp://sat.ip/?src=1&freq=12460&pol=h&ro=0.35&msys=dvbs&mtype=qpsk&plts=off&sr=27500&fec=34&pids=0,17,18,1535,1536,103,37
+#EXTINF:0,2006. Kabel Eins Doku
+rtsp://sat.ip/?src=1&freq=12545&pol=h&ro=0.35&msys=dvbs&mtype=qpsk&plts=off&sr=22000&fec=56&pids=0,17,18,2559,2560,105,41
+#EXTINF:0,2007. Lilo TV
+rtsp://sat.ip/?src=1&freq=12633&pol=h&ro=0.35&msys=dvbs&mtype=qpsk&plts=off&sr=22000&fec=56&pids=0,17,18,233,333,133
+#EXTINF:0,2008. Welt der Wunder - geht nicht
+rtsp://sat.ip/?src=1&freq=12633&pol=h&ro=0.35&msys=dvbs&mtype=qpsk&plts=off&sr=22000&fec=56&pids=0,17,18,1030,1031,1103
+#EXTINF:0,2009. RiC
+rtsp://sat.ip/?src=1&freq=12692&pol=h&ro=0.35&msys=dvbs&mtype=qpsk&plts=off&sr=22000&fec=56&pids=0,17,18,190,191,1009
+#EXTINF:0,2010. WDR Bonn SD FK
+rtsp://sat.ip/?src=1&freq=12604&pol=h&ro=0.35&msys=dvbs&mtype=qpsk&plts=on&sr=22000&fec=56&pids=0,17,18,3401,3402 ,3600,3804
+#EXTINF:0,2011. SR SWR SD FK
+rtsp://sat.ip/?freq=12422&pol=h&msys=dvbs&sr=27500&fec=34&pids=0,17,18,1301,1302,1300
+#EXTINF:0,2012. Nickelodeon HD FK
+rtsp://sat.ip/?src=1&freq=11973&pol=v&ro=0.35&msys=dvbs&mtype=qpsk&plts=off&sr=27500&fec=34&pids=0,17,18,420,4101,4102,4103
+#EXTINF:0,2012. ONE HD FK
+rtsp://sat.ip/?src=1&freq=11053&pol=h&ro=0.35&msys=dvbs2&mtype=8psk&plts=off&sr=22000&fec=23&pids=0,17,18,5410,5411,5412,5413,5416
+#EXTINF:0,2013. ZDF neo HD FK
+rtsp://sat.ip/?src=1&freq=11362&pol=h&ro=0.35&msys=dvbs2&mtype=8psk&plts=on&sr=22000&fec=23&pids=0,17,18,6300,6310,6320,6321,6322,6323,6330

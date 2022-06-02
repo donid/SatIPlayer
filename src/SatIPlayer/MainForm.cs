@@ -1,21 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Vlc.DotNet.Core;
-using Vlc.DotNet.Core.Interops;
 using DevExpress.XtraEditors;
 using Newtonsoft.Json;
-using Vlc.DotNet.Core.Interops.Signatures;
+using Vlc.DotNet.Core;
+using Vlc.DotNet.Core.Interops;
 
 
 // todo:
@@ -257,8 +251,9 @@ namespace SatIPlayer
 		private void barButtonItemChannels_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
 		{
 			List<ChannelInfo> channelList = Helpers.LoadChannellist();
+			List<ChannelInfo> customchannelList = Helpers.LoadCustomChannellist();
 			var form = new ChannelsForm();
-			form.Channels = channelList;
+			form.Channels = channelList.Concat(customchannelList).ToList();
 			form.FavoriteChannels = _favoriteChannels;
 			form.ShowDialog(this);
 			_favoriteChannels = form.FavoriteChannels;

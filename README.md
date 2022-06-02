@@ -17,4 +17,12 @@ SatIPlayer uses an existing VLC installation, which must be located in the defau
 
 **Attention:** If you have only installed 32bit VLC, you need to start *SatIPlayer_32bit.exe*
 
-Testet with VLC 3.0.8 and 3.0.10
+Testet with VLC 3.0.8, 3.0.10, 3.0.17.4
+
+
+## New Tool: SatIpUrlGenerator
+This Tool can generate Sat>IP URLs for use in the .m3u playlist files or with the "Media / Open Network Stream"-feature of VLC. The input data can be taken from _www.satindex.de_ or _www.digitalfernsehen.de/sat-frequenzen_
+
+## New playlist file: ASTRA_19_2E_custom.m3u
+Since the .m3u file at http://www.satip.info/Playlists is not very up-to-date, the file
+_ASTRA_19_2E_custom.m3u_ is used to store updated or new channels (manually maintained).
