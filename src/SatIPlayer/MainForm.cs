@@ -6,8 +6,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+
 using DevExpress.XtraEditors;
+
 using Newtonsoft.Json;
+
 using Vlc.DotNet.Core;
 using Vlc.DotNet.Core.Interops;
 
@@ -20,14 +23,20 @@ using Vlc.DotNet.Core.Interops;
 // support multiple server simultaneously?
 // mainwindow: snap to screen borders?
 
+// tried to move from Newtonsoft.Json to System.Text.Json:
+// but deserializing SatipConfig failed with
+// The JSON value could not be converted to System.Drawing.Rectangle.
+// because of
+// "RestoreBounds": "1333, 468, 1069, 707",
+
 namespace SatIPlayer
 {
 	public partial class MainForm : XtraForm
 	{
 		//string _satIpServerAndPort = "192.168.178.53";// triax / dvbviewer uses port :554 - VLC does not require the port to be specified
-		string _satIpServerAndPort;//= "192.168.178.99";// xoro / dvbviewer uses port :554 - VLC does not require the port to be specified
-		string _favoritesFilePath = "satip_favorites.json";
-		string _configFilePath = "satip_config.json";
+		private string _satIpServerAndPort;//= "192.168.178.99";// xoro / dvbviewer uses port :554 - VLC does not require the port to be specified
+		private string _favoritesFilePath = "satip_favorites.json";
+		private string _configFilePath = "satip_config.json";
 
 		private List<ChannelInfo> _favoriteChannels;
 		private ServerConfig _serverConfig = new ServerConfig();
@@ -133,7 +142,7 @@ namespace SatIPlayer
 			//mousePressed = true;
 		}
 
-		double GetNewVolumeValue(int x)
+		private double GetNewVolumeValue(int x)
 		{
 			double value = x * 1.0 / barEditItemVolume.Width;
 			int max = repositoryItemProgressBar1.Maximum;
