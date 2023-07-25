@@ -7,7 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 using DevExpress.XtraEditors;
+
 using SatIp.RtspSample.SatIp;
 
 
@@ -15,7 +17,7 @@ namespace SatIPlayer
 {
 	public partial class ServersForm : XtraForm
 	{
-		ServerConfig _serverConfig;
+		private ServerConfig _serverConfig;
 
 		public ServersForm()
 		{
@@ -28,27 +30,27 @@ namespace SatIPlayer
 			gridControl1.DataSource = serverConfig.ServerInfos;
 			gridViewServersFromConfig.FocusedRowHandle = serverConfig.ActiveServerIndex;
 		}
-		 
+
 		private void ServersForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			_serverConfig.ActiveServerIndex= gridViewServersFromConfig.FocusedRowHandle;
+			_serverConfig.ActiveServerIndex = gridViewServersFromConfig.FocusedRowHandle;
 		}
 
 		private async void ServersForm_Load(object sender, EventArgs e)
 		{
 			//vlc uses "urn:schemas-upnp-org:device:MediaServer:1"
-   			IEnumerable<UPnP.Device> devices = await new UPnP.Ssdp().SearchDevicesAsync("urn:ses-com:device:SatIPServer:1");
+			IEnumerable<UPnP.Device> devices = await new UPnP.Ssdp().SearchDevicesAsync("urn:ses-com:device:SatIPServer:1");
 
 			_upnpEmptyRowstext = "No servers found";
 
 			gridControl2.DataSource = devices;
 
-			var triax=devices.First(item => item.FriendlyName == "Triax SatIP Converter");
-			if (triax==null)
+			var triax = devices.FirstOrDefault(item => item.FriendlyName == "Triax SatIP Converter");
+			if (triax == null)
 			{
 				return;
 			}
-			var triaxSat=new SatIpDevice(triax);
+			var triaxSat = new SatIpDevice(triax);
 
 
 			// examples:
@@ -105,7 +107,7 @@ namespace SatIPlayer
 
 		}
 
-		string _upnpEmptyRowstext = "Searching...";
+		private string _upnpEmptyRowstext = "Searching...";
 
 		private void gridViewUpnpServers_CustomDrawEmptyForeground(object sender, DevExpress.XtraGrid.Views.Base.CustomDrawEventArgs e)
 		{

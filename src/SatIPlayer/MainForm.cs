@@ -5,11 +5,10 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json;
 using System.Windows.Forms;
 
 using DevExpress.XtraEditors;
-
-using Newtonsoft.Json;
 
 using Vlc.DotNet.Core;
 using Vlc.DotNet.Core.Interops;
@@ -23,11 +22,7 @@ using Vlc.DotNet.Core.Interops;
 // support multiple server simultaneously?
 // mainwindow: snap to screen borders?
 
-// tried to move from Newtonsoft.Json to System.Text.Json:
-// but deserializing SatipConfig failed with
-// The JSON value could not be converted to System.Drawing.Rectangle.
-// because of
-// "RestoreBounds": "1333, 468, 1069, 707",
+
 
 namespace SatIPlayer
 {
@@ -48,7 +43,7 @@ namespace SatIPlayer
 			InitializeComponent();
 
 			string json = File.ReadAllText("satip_servers.json");
-			var _serverInfos = JsonConvert.DeserializeObject<List<ServerInfo>>(json);
+			var _serverInfos = JsonSerializer.Deserialize<List<ServerInfo>>(json);
 			_serverConfig.ServerInfos = _serverInfos;
 			AdjustToNewServer();
 
@@ -69,7 +64,7 @@ namespace SatIPlayer
 			if (File.Exists(_favoritesFilePath))
 			{
 				string json = File.ReadAllText(_favoritesFilePath);
-				_favoriteChannels = JsonConvert.DeserializeObject<List<ChannelInfo>>(json);
+				_favoriteChannels = JsonSerializer.Deserialize<List<ChannelInfo>>(json);
 
 				BuildFavoritesMenu();
 			}
@@ -77,7 +72,7 @@ namespace SatIPlayer
 			if (File.Exists(_configFilePath))
 			{
 				string configJson = File.ReadAllText(_configFilePath);
-				var satipConfig = JsonConvert.DeserializeObject<SatipConfig>(configJson);
+				var satipConfig = JsonSerializer.Deserialize<SatipConfig>(configJson);
 				// this does not work in ctor!
 				if (satipConfig.WindowState == FormWindowState.Normal)
 				{
@@ -86,9 +81,22 @@ namespace SatIPlayer
 				}
 				else
 				{
-					this.Location = new Point(satipConfig.RestoreBounds.X, satipConfig.RestoreBounds.Y);
-					this.Size = new Size(satipConfig.RestoreBounds.Width, satipConfig.RestoreBounds.Height);
+					string stringBounds = satipConfig.RestoreBounds.Replace(',', ';');// small hack for backwards compatibility with files created with newtonsoft.json
+					Rectangle? bounds = null;
+					try
+					{
+						bounds = new RectangleConverter().ConvertFromString(stringBounds) as Rectangle?;
+					}
+					catch (Exception)
+					{
+						// do nothing
+					}
 
+					if (bounds != null)
+					{
+						this.Location = bounds.Value.Location;
+						this.Size = bounds.Value.Size;
+					}
 				}
 				this.WindowState = satipConfig.WindowState;
 			}
@@ -267,7 +275,7 @@ namespace SatIPlayer
 			form.ShowDialog(this);
 			_favoriteChannels = form.FavoriteChannels;
 
-			string json = JsonConvert.SerializeObject(_favoriteChannels, Formatting.Indented);
+			string json = JsonSerializer.Serialize(_favoriteChannels, new JsonSerializerOptions() { WriteIndented = true });
 			File.WriteAllText(_favoritesFilePath, json);
 
 			BuildFavoritesMenu();
@@ -477,9 +485,9 @@ namespace SatIPlayer
 			config.LocationY = this.Location.Y;
 			config.SizeWidth = this.Size.Width;
 			config.SizeHeight = this.Size.Height;
-			config.RestoreBounds = this.RestoreBounds;
+			config.RestoreBounds = new RectangleConverter().ConvertToString(this.RestoreBounds);
 			config.WindowState = this.WindowState;
-			var configJson = JsonConvert.SerializeObject(config);
+			var configJson = JsonSerializer.Serialize(config);
 			File.WriteAllText(_configFilePath, configJson);
 
 		}

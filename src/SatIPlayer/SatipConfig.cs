@@ -14,7 +14,7 @@ namespace SatIPlayer
 		public int LocationY { get; set; }
 		public int SizeHeight { get; set; }
 		public int SizeWidth { get; set; }
-		public Rectangle RestoreBounds { get; set; }
+		public string RestoreBounds { get; set; }
 		public FormWindowState WindowState { get; set; }
 	}
 }
