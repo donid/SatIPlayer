@@ -12,10 +12,12 @@ namespace SatIPlayer
 {
 	internal class Helpers
 	{
-
-		// here some resources related to sat>ip
+		// as of June 2024, this site appears to be completely down:
+		// here are some resources related to sat>ip
 		// http://www.satip.info/resources?tid=23
-		private const string _m3uUrl = "http://www.satip.info/Playlists/ASTRA_19_2E.m3u";
+		// private const string _m3uUrl = "http://www.satip.info/Playlists/ASTRA_19_2E.m3u";
+
+		private const string _m3uUrl = "https://raw.githubusercontent.com/dersnyke/satipplaylists/main/satip_astra192e.m3u";
 
 		public static List<ChannelInfo> LoadChannellist()
 		{
@@ -33,7 +35,6 @@ namespace SatIPlayer
 			string localFilePath = "ASTRA_19_2E_custom.m3u";
 			if (!File.Exists(localFilePath))
 			{
-
 				return new List<ChannelInfo>();
 			}
 

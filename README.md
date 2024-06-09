@@ -1,4 +1,5 @@
 # SatIPlayer
+
 A Sat>IP Video Player for Windows that uses the VLC video rendering control but provides a custom-tailored GUI for satellite over IP use (SatIP).
 
 [VLC](https://www.videolan.org) can be used to watch Sat>IP, but I found its GUI quite inconvenient for this use-case, so I created SatIPlayer.
@@ -19,10 +20,12 @@ SatIPlayer uses an existing VLC installation, which must be located in the defau
 
 Testet with VLC 3.0.8, 3.0.10, 3.0.17.4
 
-
 ## New Tool: SatIpUrlGenerator
-This Tool can generate Sat>IP URLs for use in the .m3u playlist files or with the "Media / Open Network Stream"-feature of VLC. The input data can be taken from _www.satindex.de_ or _www.digitalfernsehen.de/sat-frequenzen_
 
-## New playlist file: ASTRA_19_2E_custom.m3u
-Since the .m3u file at http://www.satip.info/Playlists is not very up-to-date, the file
-_ASTRA_19_2E_custom.m3u_ is used to store updated or new channels (manually maintained).
+This Tool can generate Sat>IP URLs for use in the .m3u playlist files or with the "Media / Open Network Stream"-feature of VLC. The input data can be taken from *<www.satindex.de>* or *<www.digitalfernsehen.de/sat-frequenzen>*
+
+## New playlist file
+
+The .m3u file at <http://www.satip.info/Playlists> has been out of date for a long time, and as of June 2024, the site appears to be completely down.
+
+So, SatIPlayer switched to using <https://github.com/dersnyke/satipplaylists>, which allowed to remove many entries in the custom channels file *ASTRA_19_2E_custom.m3u*.
