@@ -10,7 +10,7 @@ namespace SatIPlayer
 	{
 
 		public List<ServerInfo> ServerInfos { get; set; }
-		public int ActiveServerIndex { get; set; } = 1;//TODO letzten laden und Speichern
+		public int ActiveServerIndex { get; set; } = 1;//TODO: remember (serialize) the last selected
 
 	}
 }

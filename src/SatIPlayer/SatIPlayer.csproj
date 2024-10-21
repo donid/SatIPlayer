@@ -99,7 +99,6 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChannelInfo.cs" />
     <Compile Include="ChannelsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,7 +109,6 @@
     <Compile Include="SatIpDevice.cs" />
     <Compile Include="ServerConfig.cs" />
     <Compile Include="ServerInfo.cs" />
-    <Compile Include="Helpers.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,7 +132,6 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -175,7 +172,7 @@
       <Version>8.0.5</Version>
     </PackageReference>
     <PackageReference Include="VideoLAN.LibVLC.Windows">
-      <Version>3.0.20</Version>
+      <Version>3.0.21</Version>
     </PackageReference>
     <PackageReference Include="Vlc.DotNet.Forms">
       <Version>3.1.0</Version>
@@ -199,6 +196,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="icons8-retro-tv.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SatIPlayer.Common\SatIPlayer.Common.csproj">
+      <Project>{316024eb-ffb3-4773-9307-a2e0c6104fbb}</Project>
+      <Name>SatIPlayer.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

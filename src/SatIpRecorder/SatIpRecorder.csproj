@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-SatIpRecorder-61099c57-9fde-4ab1-8396-1913eb042ccc</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\SatIPlayer\ASTRA_19_2E_custom.m3u" Link="ASTRA_19_2E_custom.m3u">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+    <PackageReference Include="PlaylistsNET" Version="1.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SatIPlayer.Common\SatIPlayer.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ASTRA_19_2E.m3u">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

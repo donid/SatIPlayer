@@ -10,6 +10,8 @@ using System.Windows.Forms;
 
 using DevExpress.XtraEditors;
 
+using SatIPlayer.Common;
+
 using Vlc.DotNet.Core;
 using Vlc.DotNet.Core.Interops;
 
@@ -69,7 +71,11 @@ namespace SatIPlayer
 				BuildFavoritesMenu();
 			}
 
-			if (File.Exists(_configFilePath))
+			if (!File.Exists(_configFilePath))
+			{
+				Trace.WriteLine("ConfigFile not found");
+			}
+			else
 			{
 				string configJson = File.ReadAllText(_configFilePath);
 				var satipConfig = JsonSerializer.Deserialize<SatipConfig>(configJson);
@@ -267,8 +273,8 @@ namespace SatIPlayer
 
 		private void barButtonItemChannels_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
 		{
-			List<ChannelInfo> channelList = Helpers.LoadChannellist();
-			List<ChannelInfo> customchannelList = Helpers.LoadCustomChannellist();
+			List<ChannelInfo> channelList = HelpersCommon.LoadChannelList();
+			List<ChannelInfo> customchannelList = HelpersCommon.LoadCustomChannelList();
 			var form = new ChannelsForm();
 			form.Channels = channelList.Concat(customchannelList).ToList();
 			form.FavoriteChannels = _favoriteChannels;
@@ -303,11 +309,9 @@ namespace SatIPlayer
 			vlcControl7.Stop();
 
 			string m3uUriString = channel.Url;
-			// rtsp:// works with xoro even when an other client is already recording /  when using triax, vlc always plays the currently recorded stream
-			// satip:// seems to always create a new stream even with triax
 
 			// satip needs to be allowed by a custom Firewall-rule: see readme.md
-			string uriString = m3uUriString.Replace("sat.ip", _satIpServerAndPort).Replace("rtsp://", "satip://");//.Replace("src=1", "src=2");
+			string uriString = HelpersCommon.ApplyServerNameAndFixUri(m3uUriString, _satIpServerAndPort);//.Replace("src=1", "src=2");
 			vlcControl7.Play(new Uri(uriString));
 			barStaticItemChannelName.Caption = channel.Name;
 		}
@@ -319,8 +323,8 @@ namespace SatIPlayer
 			// pos: {vlcControl7.Position}
 
 
-			TimeSpan time = Helpers.ConvertVlcTime(vlcControl7.VlcMediaPlayer.Time);
-			TimeSpan length = Helpers.ConvertVlcTime(vlcControl7.VlcMediaPlayer.Length);
+			TimeSpan time = HelpersCommon.ConvertVlcTime(vlcControl7.VlcMediaPlayer.Time);
+			TimeSpan length = HelpersCommon.ConvertVlcTime(vlcControl7.VlcMediaPlayer.Length);
 			//length is always '0' for satip, but time-values are plausible
 			barStaticItemTime.Caption = $"Time: {time:hh\\:mm\\:ss} Length: {length:hh\\:mm\\:ss}";
 
@@ -451,8 +455,8 @@ namespace SatIPlayer
 			//media.
 			return;
 
-			bool res = vlcControl7.VlcMediaPlayer.IsSeekable;
-			vlcControl7.VlcMediaPlayer.Navigate(Vlc.DotNet.Core.Interops.Signatures.NavigateModes.Right);
+			//bool res = vlcControl7.VlcMediaPlayer.IsSeekable;
+			//vlcControl7.VlcMediaPlayer.Navigate(Vlc.DotNet.Core.Interops.Signatures.NavigateModes.Right);
 
 		}
 
