@@ -90,13 +90,9 @@ namespace SatIPlayer.Common
 			return channelList;
 		}
 
-		private static string? GetRootedFilePath(string localFilePath)
+		private static string GetRootedFilePath(string localFilePath)
 		{
-			string? exeFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-			if (exeFolder == null)
-			{
-				return null;
-			}
+			string exeFolder = AppDomain.CurrentDomain.BaseDirectory;
 			return Path.Combine(exeFolder, localFilePath);
 		}
 

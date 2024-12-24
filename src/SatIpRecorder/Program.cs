@@ -1,4 +1,5 @@
 using System.Runtime;
+using System.Text.Json;
 
 using Microsoft.Extensions.Hosting;
 
@@ -22,17 +23,15 @@ namespace SatIpRecorder
 
 		public static void Main(string[] args)
 		{
+			Console.WriteLine($"SatIpRecorder V1.0.2");
+
 			if (args.Length < 3)
 			{
 				Console.WriteLine("Usage: SatIpRecorder M3U_ChannelNumber RecordingTimeInMinutes Filename");
 				return;
 			}
 
-			if (int.TryParse(args[0], out int m3uChannelNumber) == false)
-			{
-				Console.WriteLine("M3U_ChannelNumber is not an integer");
-				return;
-			}
+			string m3uChannelName = args[0];
 
 			if (int.TryParse(args[1], out int recordingTimeInMinutes) == false)
 			{
@@ -50,10 +49,22 @@ namespace SatIpRecorder
 
 			targetFilename = args[2];
 
-			List<ChannelInfo> channelList = HelpersCommon.LoadChannelList();
-			List<ChannelInfo> customchannelList = HelpersCommon.LoadCustomChannelList();
-			List<ChannelInfo> allChannels = channelList.Concat(customchannelList).ToList();
-			ChannelInfo? tmpChannel = allChannels.FirstOrDefault(i => IsChannelNumberMatching(i, m3uChannelNumber));
+
+			const string favoritesJsonFileName = "satip_favorites.json";
+			string favoritesFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, favoritesJsonFileName);
+			if (!File.Exists(favoritesFilePath))
+			{
+				Console.WriteLine($"Favorites-Json File not found: '{favoritesFilePath}'");
+				return;
+			}
+			string json = File.ReadAllText(favoritesFilePath);
+			var favoriteChannels = JsonSerializer.Deserialize<List<ChannelInfo>>(json);
+			if (favoriteChannels == null)
+			{
+				Console.WriteLine("Cannot deserialize favorites file");
+				return;
+			}
+			ChannelInfo? tmpChannel = favoriteChannels.FirstOrDefault(i => i.Name == m3uChannelName);
 			if (tmpChannel == null)
 			{
 				Console.WriteLine("Channel not found");
@@ -78,22 +89,7 @@ namespace SatIpRecorder
 			host.Run();
 		}
 
-		private static bool IsChannelNumberMatching(ChannelInfo info, int number)
-		{
-			int index = info.Name.IndexOf('.');
-			if (index < 1)
-			{
-				return false;
-			}
 
-			string numberSubstring = info.Name.Substring(0, index);
-			if (int.TryParse(numberSubstring, out int currentNumber) == false)
-			{
-				return false;
-			}
-
-			return number == currentNumber;
-		}
 
 	}
 }
