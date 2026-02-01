@@ -58,6 +58,11 @@
 			// 
 			this.gridControlAllChannels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+			this.gridControlAllChannels.EmbeddedNavigator.Buttons.Append.Visible = false;
+			this.gridControlAllChannels.EmbeddedNavigator.Buttons.CancelEdit.Visible = false;
+			this.gridControlAllChannels.EmbeddedNavigator.Buttons.Edit.Visible = false;
+			this.gridControlAllChannels.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
+			this.gridControlAllChannels.EmbeddedNavigator.Buttons.Remove.Visible = false;
 			this.gridControlAllChannels.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(4);
 			this.gridControlAllChannels.Location = new System.Drawing.Point(12, 28);
 			this.gridControlAllChannels.MainView = this.gridViewAllChannels;
@@ -65,6 +70,7 @@
 			this.gridControlAllChannels.Name = "gridControlAllChannels";
 			this.gridControlAllChannels.Size = new System.Drawing.Size(310, 482);
 			this.gridControlAllChannels.TabIndex = 0;
+			this.gridControlAllChannels.UseEmbeddedNavigator = true;
 			this.gridControlAllChannels.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewAllChannels});
 			this.gridControlAllChannels.DoubleClick += new System.EventHandler(this.gridControl1_DoubleClick);
@@ -107,11 +113,16 @@
 			// 
 			// gridControlFavoriteChannels
 			// 
+			this.gridControlFavoriteChannels.EmbeddedNavigator.Buttons.Append.Visible = false;
+			this.gridControlFavoriteChannels.EmbeddedNavigator.Buttons.CancelEdit.Visible = false;
+			this.gridControlFavoriteChannels.EmbeddedNavigator.Buttons.Edit.Visible = false;
+			this.gridControlFavoriteChannels.EmbeddedNavigator.Buttons.EndEdit.Visible = false;
 			this.gridControlFavoriteChannels.Location = new System.Drawing.Point(326, 28);
 			this.gridControlFavoriteChannels.MainView = this.gridViewFavoriteChannels;
 			this.gridControlFavoriteChannels.Name = "gridControlFavoriteChannels";
 			this.gridControlFavoriteChannels.Size = new System.Drawing.Size(315, 482);
 			this.gridControlFavoriteChannels.TabIndex = 4;
+			this.gridControlFavoriteChannels.UseEmbeddedNavigator = true;
 			this.gridControlFavoriteChannels.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewFavoriteChannels});
 			// 
@@ -123,6 +134,7 @@
             this.gridColumn2});
 			this.gridViewFavoriteChannels.GridControl = this.gridControlFavoriteChannels;
 			this.gridViewFavoriteChannels.Name = "gridViewFavoriteChannels";
+			this.gridViewFavoriteChannels.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.True;
 			this.gridViewFavoriteChannels.OptionsBehavior.Editable = false;
 			this.gridViewFavoriteChannels.OptionsSelection.MultiSelect = true;
 			this.gridViewFavoriteChannels.OptionsView.ShowAutoFilterRow = true;
@@ -155,7 +167,6 @@
 			this.layoutControlItem1.Size = new System.Drawing.Size(314, 502);
 			this.layoutControlItem1.Text = "All Channels";
 			this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
-			this.layoutControlItem1.TextSize = new System.Drawing.Size(87, 13);
 			// 
 			// layoutControlItem2
 			// 
@@ -165,7 +176,6 @@
 			this.layoutControlItem2.Size = new System.Drawing.Size(319, 502);
 			this.layoutControlItem2.Text = "Favorite Channels";
 			this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Top;
-			this.layoutControlItem2.TextSize = new System.Drawing.Size(87, 13);
 			// 
 			// dragDropEvents1
 			// 

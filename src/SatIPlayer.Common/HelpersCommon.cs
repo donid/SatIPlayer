@@ -77,7 +77,7 @@ namespace SatIPlayer.Common
 			M3uPlaylist playlist;
 			try
 			{
-				string m3uContent = File.ReadAllText(rootedFilePath);
+				string m3uContent = File.ReadAllText(rootedFilePath, Encoding.Default); // umlauts were wrong without Encoding.Default
 				M3uContent content = new M3uContent();
 				playlist = content.GetFromString(m3uContent);
 			}

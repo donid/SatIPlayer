@@ -4,10 +4,11 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Text;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 using DevExpress.XtraEditors;
 
 namespace SatIPlayer
@@ -28,7 +29,7 @@ namespace SatIPlayer
 
 			textEditVlcVersion.Text = "Vlc Version: " + VlcVersion;
 			textEditVlcLibDirectory.Text = "Vlc LibDirectory: " + VlcLibDirectory;
-			textEditSatIPlayerVersion.Text = "SatIPlayer Version: " + Application.ProductVersion;
+			textEditSatIPlayerVersion.Text = "SatIPlayer Version: " + Application.ProductVersion.Split('+')[0]; // remove "source control metadata suffix"
 		}
 	}
 }
